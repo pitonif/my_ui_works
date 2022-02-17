@@ -57,3 +57,13 @@ class Menu {
        // self.products = [product1, product2, product3]
     }
 }
+
+
+extension String {
+    func widthOfString(usingFont font: UIFont)-> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = (self as NSString).size(withAttributes: fontAttributes)
+        
+        return ceil(size.width)
+    }
+}

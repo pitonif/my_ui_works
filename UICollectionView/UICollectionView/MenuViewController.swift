@@ -63,11 +63,29 @@ extension MenuViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+        if collectionView == groupsCollectionView {
+            let groupName = menu.groups[indexPath.item].name
+            let width = groupName.widthOfString(usingFont: UIFont.systemFont(ofSize: 17))
+            
+            return CGSize(width: width + 20, height: collectionView.frame.height)
+        } else {
+            return CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+        }
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 100
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == groupsCollectionView {
+            self.selectedGroupIndex = indexPath.item
+            self.collectionView.reloadData()
+        }
+    }
 }
